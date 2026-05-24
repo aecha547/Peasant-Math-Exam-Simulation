@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grade 8 Mathematics June Examination Simulation</title>
+    <style>
+        :root {
+            --paper: #ffffff;
+            --ink: #1a202c;
+            --muted-ink: #4a5568;
+            --line-color: #cbd5e0;
+            --accent: #0b5a84;
+            --border-radius: 4px;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact; 
+        }
+
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            background: #f0f2f5;
+            color: var(--ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        /* A4 Page Formatting Layout */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 15mm auto;
+            background: var(--paper);
+            padding: 25mm 20mm 20mm 20mm;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Coversheet Styling */
+        .coversheet {
+            justify-content: flex-start;
+            padding-top: 35mm;
+        }
+
+        .header-block {
+            text-align: center;
+            margin-bottom: 10mm;
+        }
+
+        .header-block h1 {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 0 0 2mm 0;
+            color: var(--ink);
+        }
+
+        .header-block h2 {
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0;
+            color: var(--muted-ink);
+        }
+
+        .meta-info-box {
+            border: 1px solid #000;
+            margin: 8mm 0;
+            width: 100%;
+        }
+
+        .meta-row {
+            display: flex;
+            border-bottom: 1px solid #000;
+        }
+
+        .meta-row:last-child {
+            border-bottom: none;
+        }
+
+        .meta-cell {
+            flex: 1;
+            padding: 3mm 4mm;
+            font-size: 15px;
+        }
+
+        .meta-cell:first-child {
+            border-right: 1px solid #000;
+        }
+
+        /* Scope Grid Table */
+        .scope-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8mm 0;
+        }
+
+        .scope-table th, .scope-table td {
+            border: 1px solid #000;
+            padding: 2mm 3mm;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .scope-table th {
+            background-color: #f8fafc;
+        }
+
+        .scope-table td:last-child, .scope-table th:last-child {
+            text-align: right;
+            width: 25mm;
+        }
+
+        .instructions-box {
+            border: 1px solid #000;
+            padding: 5mm 6mm;
+            background: #ffffff;
+            margin-top: 5mm;
+        }
+
+        .instructions-box h3 {
+            margin-top: 0;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .instructions-box ol {
+            margin: 0;
+            padding-left: 5mm;
+        }
+
+        .instructions-box li {
+            margin-bottom: 2mm;
+        }
+
+        /* Question Layout Headings */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1.5px solid #000;
+            padding-bottom: 1mm;
+            margin-top: 5mm;
+            margin-bottom: 5mm;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .section-header .section-marks {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* Clear Mathematical Typesetting Formatting Rules */
+        .math {
+            font-family: "Times New Roman", Times, Baskerville, Georgia, serif;
+            font-style: italic;
+            font-size: 1.2em;
+            white-space: nowrap;
+        }
+
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0 2px;
+        }
+
+        .fraction .num {
+            display: block;
+            border-bottom: 1px solid var(--ink);
+            padding: 0 2px;
+            line-height: 1.1;
+        }
+
+        .fraction .den {
+            display: block;
+            padding: 1px 2px 0 2px;
+            line-height: 1.1;
+        }
+
+        .exponent {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 0.75em;
+            vertical-align: super;
+            line-height: 0;
+            margin-left: 0.5px;
+        }
+
+        /* Flow Diagram Specific Layout Elements */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            margin: 4mm 0 4mm 8mm;
+            font-size: 16px;
+        }
+
+        .flow-box {
+            border: 1px solid #000;
+            padding: 2mm 5mm;
+            background: #ffffff;
+            margin: 0 3mm;
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+        }
+
+        .flow-arrow {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Nested List Arrays for Numbered Questions */
+        ol.questions-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        ol.questions-list > li {
+            margin-bottom: 6mm;
+            position: relative;
+            padding-left: 10mm;
+        }
+
+        ol.questions-list > li::before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 700;
+        }
+
+        ol.questions-list { counter-reset: item; }
+        ol.sub-list { counter-reset: subitem; list-style-type: none; padding-left: 0; margin-top: 1.5mm; }
+        ol.sub-list > li { margin-bottom: 3.5mm; position: relative; padding-left: 8mm; }
+        ol.sub-list > li::before {
+            content: "(" counter(subitem, lowercase-alpha) ") ";
+            counter-increment: subitem;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mark-allocation {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 14px;
+            float: right;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        /* Inline SVG Layout Containers */
+        .diagram-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5mm 0;
+            background: #ffffff;
+        }
+
+        .diagram {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 3mm;
+        }
+
+        .end-notice {
+            text-align: center;
+            font-weight: 700;
+            border-top: 1px dashed #000;
+            border-bottom: 1px dashed #000;
+            padding: 3mm 0;
+            margin-top: auto;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hard Page-Breaks Configurations for Exact Print Previews */
+        .break { page-break-before: always; }
+
+        @media print {
+            body { background: white; }
+            .page { 
+                margin: 0; 
+                box-shadow: none; 
+                border: none; 
+                page-break-after: always; 
+                height: 297mm;
+            }
+            .page:last-child { page-break-after: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="page coversheet">
+        <div class="header-block">
+            <h1>GRADE 8 MATHEMATICS</h1>
+            <h2>JUNE EXAMINATION SIMULATION</h2>
+        </div>
+
+        <div class="meta-info-box">
+            <div class="meta-row">
+                <div class="meta-cell"><strong>Time Allowed:</strong> 2 Hours</div>
+                <div class="meta-cell"><strong>Total Marks:</strong> 100 Marks</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-cell" colspan="2"><strong>Format:</strong> Write in your exercise book / answer book.</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-cell" colspan="2"><strong>Calculator:</strong> Allowed unless stated otherwise.</div>
+            </div>
+        </div>
+
+        <table class="scope-table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Topic</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Whole numbers, factors, multiples and ratio</td><td>15</td></tr>
+                <tr><td>2</td><td>Integers</td><td>10</td></tr>
+                <tr><td>3</td><td>Fractions, decimals and rounding</td><td>12</td></tr>
+                <tr><td>4</td><td>Exponents and scientific notation</td><td>13</td></tr>
+                <tr><td>5</td><td>Patterns and relationships</td><td>8</td></tr>
+                <tr><td>6</td><td>Algebraic expressions</td><td>20</td></tr>
+                <tr><td>7</td><td>Algebraic equations</td><td>12</td></tr>
+                <tr><td>8</td><td>Geometry of angles</td><td>10</td></tr>
+                <tr style="font-weight: bold;"><td>Total</td><td>June Examination Simulation Paper</td><td>100</td></tr>
+            </tbody>
+        </table>
+
+        <div class="instructions-box">
+            <h3>Instructions and Information</h3>
+            <ol>
+                <li>Do not write on this question paper. Answer every question in your answer book.</li>
+                <li>Number your answers exactly as the questions are numbered.</li>
+                <li>Show all necessary working. Answers only may lose marks.</li>
+                <li>Write neatly and leave a line between questions.</li>
+                <li>Use a ruler and pencil for diagrams where needed.</li>
+                <li>Round off to two decimal places where necessary, unless told otherwise.</li>
+                <li>Read each question carefully before starting.</li>
+            </ol>
+        </div>
+        
+        <div class="footer">
+            <span>Mathematics Grade 8 June Simulation</span>
+            <span>Page 1 of 5</span>
+        </div>
+    </section>
+
+    <section class="page break">
+        <div class="section-header">
+            <h2>Question 1: Whole Numbers, Factors, Multiples and Ratio</h2>
+            <span class="section-marks">[15]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Calculate. Show your order of operations clearly.
+                <ol class="sub-list">
+                    <li>
+                        <span class="math">48 + 12 &times; 6 - 36 &divide; 9</span>
+                        <span class="mark-allocation">(2)</span>
+                    </li>
+                    <li>
+                        <span class="math">3<span class="exponent">2</span> + &radic;81 &times; 2 - 4(5 - 2)</span>
+                        <span class="mark-allocation">(3)</span>
+                    </li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Write <span class="math">360</span> as a product of prime factors. Use index notation.
+                <span class="mark-allocation">(3)</span>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Find the HCF and LCM of <span class="math">84</span> and <span class="math">126</span>. Show your method.
+                <span class="mark-allocation">(4)</span>
+                <div class="clear"></div>
+            </li>
+            <li>
+                A packet has <span class="math">96</span> sweets. The sweets are shared in the ratio <span class="math">3 : 5</span>. How many sweets does each person receive?
+                <span class="mark-allocation">(3)</span>
+                <div class="clear"></div>
+            </li>
+            <li>
+                What is the smallest whole number greater than <span class="math">0</span> that is divisible by both <span class="math">6</span> and <span class="math">8</span>?
+                <span class="mark-allocation">(3)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="section-header" style="margin-top: 6mm;">
+            <h2>Question 2: Integers</h2>
+            <span class="section-marks">[10]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Calculate.
+                <ol class="sub-list">
+                    <li>
+                        <span class="math">(-12) + 18 - (-7)</span>
+                        <span class="mark-allocation">(2)</span>
+                    </li>
+                    <li>
+                        <span class="math">(-6)(-4) - 30 &divide; (-5)</span>
+                        <span class="mark-allocation">(3)</span>
+                    </li>
+                    <li>
+                        <span class="math">(-3)<span class="exponent">2</span> - 3<span class="exponent">2</span> + (-2)<span class="exponent">3</span></span>
+                        <span class="mark-allocation">(3)</span>
+                    </li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                The temperature is <span class="math">-3&deg;C</span>. It drops by <span class="math">7&deg;C</span> and then rises by <span class="math">12&deg;C</span>. What is the final temperature?
+                <span class="mark-allocation">(2)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="footer">
+            <span>Mathematics Grade 8 June Simulation</span>
+            <span>Page 2 of 5</span>
+        </div>
+    </section>
+
+    <section class="page break">
+        <div class="section-header">
+            <h2>Question 3: Fractions, Decimals and Rounding</h2>
+            <span class="section-marks">[12]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Calculate. Give each answer in simplest form.
+                <ol class="sub-list">
+                    <li>
+                        <div class="fraction"><span class="num">3</span><span class="den">4</span></div> <span class="math">+</span> <div class="fraction"><span class="num">5</span><span class="den">6</span></div>
+                        <span class="mark-allocation">(2)</span>
+                    </li>
+                    <li>
+                        <span class="math">2</span><div class="fraction"><span class="num">1</span><span class="den">3</span></div> <span class="math">-</span> <div class="fraction"><span class="num">5</span><span class="den">8</span></div>
+                        <span class="mark-allocation">(3)</span>
+                    </li>
+                    <li>
+                        <div class="fraction"><span class="num">4</span><span class="den">9</span></div> <span class="math">&times;</span> <div class="fraction"><span class="num">15</span><span class="den">16</span></div>
+                        <span class="mark-allocation">(2)</span>
+                    </li>
+                    <li>
+                        <div class="fraction"><span class="num">3</span><span class="den">5</span></div> <span class="math">&divide;</span> <div class="fraction"><span class="num">9</span><span class="den">10</span></div>
+                        <span class="mark-allocation">(3)</span>
+                    </li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Round <span class="math">17.8465</span> to two decimal places.
+                <span class="mark-allocation">(1)</span>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Write <span class="math">0.375</span> as a common fraction in simplest form.
+                <span class="mark-allocation">(1)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="section-header" style="margin-top: 6mm;">
+            <h2>Question 4: Exponents and Scientific Notation</h2>
+            <span class="section-marks">[13]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Evaluate.
+                <ol class="sub-list">
+                    <li><span class="math">2<span class="exponent">5</span></span> <span class="mark-allocation">(1)</span></li>
+                    <li><span class="math">(-3)<span class="exponent">3</span></span> <span class="mark-allocation">(1)</span></li>
+                    <li><span class="math">&radic;144</span> <span class="mark-allocation">(1)</span></li>
+                    <li>The cube root of <span class="math">(-125)</span> <span class="mark-allocation">(1)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Simplify. Leave your answer as a single power where possible.
+                <ol class="sub-list">
+                    <li><span class="math">3<span class="exponent">4</span> &times; 3<span class="exponent">2</span></span> <span class="mark-allocation">(2)</span></li>
+                    <li><span class="math">10<span class="exponent">5</span> &divide; 10<span class="exponent">2</span></span> <span class="mark-allocation">(2)</span></li>
+                    <li><span class="math">(2<span class="exponent">3</span>)<span class="exponent">2</span></span> <span class="mark-allocation">(2)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Write the following in scientific notation.
+                <ol class="sub-list">
+                    <li><span class="math">58&nbsp;000</span> <span class="mark-allocation">(1)</span></li>
+                    <li><span class="math">3&nbsp;200&nbsp;000</span> <span class="mark-allocation">(1)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Write <span class="math">3.2 &times; 10<span class="exponent">5</span></span> in ordinary notation.
+                <span class="mark-allocation">(1)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="footer">
+            <span>Mathematics Grade 8 June Simulation</span>
+            <span>Page 3 of 5</span>
+        </div>
+    </section>
+
+    <section class="page break">
+        <div class="section-header">
+            <h2>Question 5: Patterns and Relationships</h2>
+            <span class="section-marks">[8]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Consider the number pattern: &nbsp; <span class="math">4; &nbsp; 7; &nbsp; 10; &nbsp; 13; &nbsp; ...</span>
+                <ol class="sub-list">
+                    <li>Write down the next two terms. <span class="mark-allocation">(1)</span></li>
+                    <li>Describe the rule in words. <span class="mark-allocation">(2)</span></li>
+                    <li>Find the 20th term. <span class="mark-allocation">(2)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                A rule is shown by the flow diagram:
+                <div class="flow-container">
+                    <span class="math">n</span> 
+                    <span class="flow-arrow">&nbsp;&rarr;&nbsp;</span> 
+                    <div class="flow-box">&times; 4</div> 
+                    <span class="flow-arrow">&nbsp;&rarr;&nbsp;</span> 
+                    <div class="flow-box">+ 1</div> 
+                    <span class="flow-arrow">&nbsp;&rarr;&nbsp;</span> 
+                    <span>Output</span>
+                </div>
+                Complete the outputs for <span class="math">n = 1</span>, <span class="math">n = 2</span> and <span class="math">n = 5</span>.
+                <span class="mark-allocation">(3)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="section-header" style="margin-top: 6mm;">
+            <h2>Question 6: Algebraic Expressions</h2>
+            <span class="section-marks">[20]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Consider the expression: &nbsp; <span class="math">9 + 3x<span class="exponent">2</span> - 4x<span class="exponent">3</span> - 4x</span>
+                <ol class="sub-list">
+                    <li>Rewrite the expression in descending powers of <span class="math">x</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>How many terms are there? <span class="mark-allocation">(1)</span></li>
+                    <li>Write down the coefficient of <span class="math">x<span class="exponent">2</span></span>. <span class="mark-allocation">(1)</span></li>
+                    <li>Write down the coefficient of <span class="math">x</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>Evaluate the expression if <span class="math">x = -1</span>. <span class="mark-allocation">(3)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Write an algebraic expression for each description.
+                <ol class="sub-list">
+                    <li>The sum of <span class="math">a</span> and <span class="math">b</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>The product of <span class="math">a</span> and <span class="math">b</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>Three times the difference between <span class="math">p</span> and <span class="math">q</span>. <span class="mark-allocation">(2)</span></li>
+                    <li>The sum of a number and double the same number. Use <span class="math">n</span> for the number. <span class="mark-allocation">(2)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Simplify.
+                <ol class="sub-list">
+                    <li><span class="math">3a - 2a - 5a</span> <span class="mark-allocation">(2)</span></li>
+                    <li><span class="math">x<span class="exponent">2</span> &times; 2x<span class="exponent">3</span> &times; 5x<span class="exponent">4</span></span> <span class="mark-allocation">(2)</span></li>
+                    <li><span class="math">3(x - y) - 2(2x - y) - 3x</span> <span class="mark-allocation">(3)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="footer">
+            <span>Mathematics Grade 8 June Simulation</span>
+            <span>Page 4 of 5</span>
+        </div>
+    </section>
+
+    <section class="page break">
+        <div class="section-header">
+            <h2>Question 7: Algebraic Equations</h2>
+            <span class="section-marks">[12]</span>
+        </div>
+
+        <p style="margin-bottom: 4mm;">Solve for <span class="math">x</span>. Show all working.</p>
+
+        <ol class="questions-list">
+            <li><span class="math">x - 1 = 5</span> <span class="mark-allocation">(1)</span><div class="clear"></div></li>
+            <li><div class="fraction"><span class="num">x</span><span class="den">3</span></div> <span class="math">= -6</span> <span class="mark-allocation">(2)</span><div class="clear"></div></li>
+            <li><span class="math">4x - 21 = 5 - 9x</span> <span class="mark-allocation">(3)</span><div class="clear"></div></li>
+            <li><span class="math">3(x - 2) = 12</span> <span class="mark-allocation">(2)</span><div class="clear"></div></li>
+            <li><span class="math">4(x + 3) = 5(6x - 2) + 3</span> <span class="mark-allocation">(4)</span><div class="clear"></div></li>
+        </ol>
+
+        <div class="section-header" style="margin-top: 6mm;">
+            <h2>Question 8: Geometry of Angles</h2>
+            <span class="section-marks">[10]</span>
+        </div>
+
+        <ol class="questions-list">
+            <li>
+                Write down the correct name for each angle relationship.
+                <ol class="sub-list">
+                    <li>Two angles that add up to <span class="math">90&deg;</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>Two angles that add up to <span class="math">180&deg;</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>Opposite angles formed when two straight lines intersect. <span class="mark-allocation">(1)</span></li>
+                    <li>Angles next to each other that share a vertex and one arm. <span class="mark-allocation">(1)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Calculate.
+                <ol class="sub-list">
+                    <li>The complement of <span class="math">37&deg;</span>. <span class="mark-allocation">(1)</span></li>
+                    <li>The supplement of <span class="math">112&deg;</span>. <span class="mark-allocation">(1)</span></li>
+                </ol>
+                <div class="clear"></div>
+            </li>
+            <li>
+                In the diagram below, angles around a point are shown. Find <span class="math">x</span>.
+                <span class="mark-allocation">(2)</span>
+                <div class="diagram-container">
+                    <svg class="diagram" width="360" height="180" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="180" cy="90" r="4" fill="#000000"/>
+                        <line x1="180" y1="90" x2="300" y2="90" stroke="#000000" stroke-width="2"/>
+                        <line x1="180" y1="90" x2="245" y2="25" stroke="#000000" stroke-width="2"/>
+                        <line x1="180" y1="90" x2="120" y2="30" stroke="#000000" stroke-width="2"/>
+                        <line x1="180" y1="90" x2="130" y2="155" stroke="#000000" stroke-width="2"/>
+                        <text x="230" y="78" font-family="'Times New Roman', Times, serif" font-style="italic" font-weight="bold" font-size="16" fill="#1a202c">70°</text>
+                        <text x="175" y="45" font-family="'Times New Roman', Times, serif" font-style="italic" font-weight="bold" font-size="16" fill="#1a202c">110°</text>
+                        <text x="135" y="105" font-family="'Times New Roman', Times, serif" font-style="italic" font-weight="bold" font-size="16" fill="#1a202c">95°</text>
+                        <text x="210" y="130" font-family="'Times New Roman', Times, serif" font-style="italic" font-weight="bold" font-size="18" fill="#000000">x</text>
+                    </svg>
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                Two adjacent angles lie on a straight line. Their sizes are <span class="math">2x + 30&deg;</span> and <span class="math">3x - 10&deg;</span>. Find the value of <span class="math">x</span>.
+                <span class="mark-allocation">(2)</span>
+                <div class="clear"></div>
+            </li>
+        </ol>
+
+        <div class="end-notice">
+            === End of Examination Question Paper ===
+        </div>
+
+        <div class="footer">
+            <span>Mathematics Grade 8 June Simulation</span>
+            <span>Page 5 of 5</span>
+        </div>
+    </section>
+
+</body>
+</html>
